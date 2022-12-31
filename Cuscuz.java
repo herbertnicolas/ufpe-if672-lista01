@@ -1,7 +1,5 @@
 import java.util.Scanner;
 
-import javax.xml.bind.annotation.W3CDomHandler;
-
 public class Cuscuz {
     No first;
     No last;
@@ -14,17 +12,21 @@ public class Cuscuz {
     }
 
     public class No {
-        int dado;
+        int numero;
+        char naipe;
         No prox;
 
-        public No(int d){
-            this.dado = d;
+        public No(int num, char nai){
+            this.numero = num;
+            this.naipe = nai;
             this.prox = null;
         }
     }
 
-    public void enQueue(int d) {
-        No novoNo = new No(d);
+    public void enQueue(String carta) {
+        int num = Character.getNumericValue(carta.charAt(0));
+        // System.out.println(num);
+        No novoNo = new No(num, carta.charAt(1));
         
         if (last == null) {     
             last = novoNo;
@@ -41,10 +43,17 @@ public class Cuscuz {
 
     public void printQueue(){
         No aux = first;
+        // char num = aux.numero;
         String result = "";
-        
+        // System.out.println(numAux);
+        // String pt = aux.naipe;
+        int n = aux.numero;
+        // System.out.println(n);
+        result = result.concat(String.valueOf(aux.numero)).concat(Character.toString(aux.naipe)).concat(" ");
+
+        // System.out.println(result);
         while(aux != null){
-            result += (int)aux.dado + " ";
+            result += (int)aux.numero + aux.naipe + " ";
             aux = aux.prox;
         }
         System.out.println(result);
@@ -54,11 +63,24 @@ public class Cuscuz {
         Scanner in = new Scanner(System.in);
         //int numPlayers = in.nextInt();
         Cuscuz c = new Cuscuz();
-        c.enQueue(20);
-        c.enQueue(30);
-        c.enQueue(10);
-        c.enQueue(0);
-        c.printQueue();
+        String op = in.nextLine();
+        String[] o = op.split(" "); 
+
+        if(o[0].equals("DEA")){
+            int i = 1;
+            c.enQueue(o[1]);
+            c.printQueue();
+            // while(o[i] != null){
+            //     c.enQueue(o[i]);
+            //     i++;
+            // }            
+        }
+
+        // c.enQueue(20);
+        // c.enQueue(30);
+        // c.enQueue(10);
+        // c.enQueue(0);
+        // c.printQueue();
     }
 }
 
